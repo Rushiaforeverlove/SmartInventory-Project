@@ -60,19 +60,30 @@ namespace SmartInventory.Data
             using (var conn = new SqliteConnection(connStr))
             {
                 conn.Open();
-                using var cmd = new SqliteCommand("SELECT * FROM Products ORDER BY Id", conn);
-                using var reader = cmd.ExecuteReader();
-                while (reader.Read()) // 一列一列讀
-                    result.Add(new Product
+                string sql = "SELECT * FROM Products";
+
+                using (var cmd = new SqliteCommand(sql, conn))
+                {
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        Id = Convert.ToInt32(reader["Id"]),
-                        Name = reader["Name"].ToString() ?? "",
-                        Category = reader["Category"].ToString() ?? "",
-                        Quantity = Convert.ToInt32(reader["Quantity"]),
-                        Price = Convert.ToDecimal(reader["Price"])
-                    });
-                return result;
+                        while (reader.Read()) // 一列一列
+                        {
+                            var p = new Product();
+
+                            p.Id = Convert.ToInt32(reader["Id"]);
+                            p.Name = reader["Name"].ToString()!;
+                            p.Category = reader["Category"].ToString()!;
+                            p.Quantity = Convert.ToInt32(reader["Quantity"]);
+                            p.Price = Convert.ToDecimal(reader["Price"]);
+
+                            result.Add(p);
+                        }
+                    }
+
+                }
+
             }
+            return result;
         }
     }
 }

@@ -1,5 +1,7 @@
 using SmartInventory.Data;
 using SmartInventory.Models;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace SmartInventory
 {
@@ -11,18 +13,26 @@ namespace SmartInventory
         //
         // TODO（13-1）：宣告全部商品清單
         //   private List<Product> all = new List<Product>();
+        private List<Product> all = new List<Product>();
 
+        //綁定畫面用
+        private BindingList<Product> veiw = new BindingList<Product>();
         public MainForm()
         {
             InitializeComponent();
+            dgv.DataSource = veiw;
+            dgv.AllowUserToAddRows = false; // ← 拿掉最後那條可輸入的空白列
+            dgv.AllowUserToDeleteRows = false; // 不讓在表格上直接刪列
+            dgv.MultiSelect = false; // 一次只選一列
+
             Dbhelper.InitDb();
-            Dbhelper.InsertProduct(new Product()
+            all = Dbhelper.GetAllProducts();
+
+            foreach(var p in all) 
             {
-                Name = "藍牙耳機",
-                Category = "3C",
-                Quantity = 10,
-                Price = 699
-            });
+                Debug.WriteLine(p);
+            }
+           RefreshVeiw();
 
             // TODO（13-1）：啟動就讀資料庫
 
@@ -38,6 +48,18 @@ namespace SmartInventory
             //   var btnChart = new Button { Text = "統計圖表", AutoSize = true };
             //   btnChart.Click += (_, _) => new ChartForm(all).ShowDialog();
             //   flowLayoutPanel1.Controls.Add(btnChart);
+        }
+
+        public void RefreshVeiw()
+        {
+            veiw.Clear();
+
+
+
+            foreach(var p in all)
+            {
+                veiw.Add(p);
+            }
         }
 
         // ───── 以下方法 13-2 才會寫（按鈕事件可在 Designer 雙擊自動產生）─────

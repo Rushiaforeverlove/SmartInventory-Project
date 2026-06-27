@@ -1,3 +1,4 @@
+using SmartInventory.Data;
 using SmartInventory.Models;
 
 namespace SmartInventory
@@ -14,16 +15,17 @@ namespace SmartInventory
         public MainForm()
         {
             InitializeComponent();
-
-            Product p = new Product();
-            p.Id = 1;
-            p.Name = "Test";
-            p.Price = 100.9M;
-            p.Quantity = 20;
-            
+            Dbhelper.InitDb();
+            Dbhelper.InsertProduct(new Product()
+            {
+                Name = "藍牙耳機",
+                Category = "3C",
+                Quantity = 10,
+                Price = 699
+            });
 
             // TODO（13-1）：啟動就讀資料庫
-            //   DbHelper.InitDb();
+
             //   all = DbHelper.GetAllProducts();
 
             // TODO（13-2）：接上畫面

@@ -28,11 +28,11 @@ namespace SmartInventory
             Dbhelper.InitDb();
             all = Dbhelper.GetAllProducts();
 
-            foreach(var p in all) 
+            foreach (var p in all)
             {
                 Debug.WriteLine(p);
             }
-           RefreshVeiw();
+            RefreshVeiw();
 
             // TODO（13-1）：啟動就讀資料庫
 
@@ -56,10 +56,32 @@ namespace SmartInventory
 
 
 
-            foreach(var p in all)
+            foreach (var p in all)
             {
                 veiw.Add(p);
             }
+        }
+
+        private bool ReadInput()
+        {
+            if (txtName.Text.Trim() == "" || txtCategory.Text.Trim() == "")
+            {
+                MessageBox.Show("商品名稱或分類不能為空!");
+                return false;
+            }
+
+            if(!int.TryParse(txtQuantity.Text, out int q)) 
+            {
+                MessageBox.Show("輸入數量不正確!");
+                return false;
+            }
+        
+            return true;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            ReadInput();
         }
 
         // ───── 以下方法 13-2 才會寫（按鈕事件可在 Designer 雙擊自動產生）─────

@@ -35,7 +35,6 @@ partial class MainForm
             label5 = new Label();
             txtQuantity = new TextBox();
             label4 = new Label();
-            txtCategory = new TextBox();
             label3 = new Label();
             txtName = new TextBox();
             flowLayoutPanel2 = new FlowLayoutPanel();
@@ -43,6 +42,8 @@ partial class MainForm
             btnUpdate = new Button();
             btnDelete = new Button();
             btnClear = new Button();
+            cmbInputCategory = new ComboBox();
+            txtCategory = new TextBox();
             dgv = new DataGridView();
             flowLayoutPanel3 = new FlowLayoutPanel();
             lblTotal = new Label();
@@ -135,10 +136,10 @@ partial class MainForm
             tableLayoutPanel2.Controls.Add(label5, 0, 2);
             tableLayoutPanel2.Controls.Add(txtQuantity, 1, 2);
             tableLayoutPanel2.Controls.Add(label4, 0, 1);
-            tableLayoutPanel2.Controls.Add(txtCategory, 1, 1);
             tableLayoutPanel2.Controls.Add(label3, 0, 0);
             tableLayoutPanel2.Controls.Add(txtName, 1, 0);
             tableLayoutPanel2.Controls.Add(flowLayoutPanel2, 1, 4);
+            tableLayoutPanel2.Controls.Add(cmbInputCategory, 1, 1);
             tableLayoutPanel2.Dock = DockStyle.Left;
             tableLayoutPanel2.Location = new Point(0, 61);
             tableLayoutPanel2.Margin = new Padding(5);
@@ -157,7 +158,7 @@ partial class MainForm
             // 
             label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
-            label6.Location = new Point(5, 128);
+            label6.Location = new Point(5, 125);
             label6.Margin = new Padding(5, 0, 5, 0);
             label6.Name = "label6";
             label6.Size = new Size(46, 23);
@@ -167,7 +168,7 @@ partial class MainForm
             // txtPrice
             // 
             txtPrice.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtPrice.Location = new Point(61, 125);
+            txtPrice.Location = new Point(61, 122);
             txtPrice.Margin = new Padding(5);
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(248, 30);
@@ -177,7 +178,7 @@ partial class MainForm
             // 
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
-            label5.Location = new Point(5, 88);
+            label5.Location = new Point(5, 85);
             label5.Margin = new Padding(5, 0, 5, 0);
             label5.Name = "label5";
             label5.Size = new Size(46, 23);
@@ -187,7 +188,7 @@ partial class MainForm
             // txtQuantity
             // 
             txtQuantity.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtQuantity.Location = new Point(61, 85);
+            txtQuantity.Location = new Point(61, 82);
             txtQuantity.Margin = new Padding(5);
             txtQuantity.Name = "txtQuantity";
             txtQuantity.Size = new Size(248, 30);
@@ -197,21 +198,12 @@ partial class MainForm
             // 
             label4.Anchor = AnchorStyles.None;
             label4.AutoSize = true;
-            label4.Location = new Point(5, 48);
+            label4.Location = new Point(5, 47);
             label4.Margin = new Padding(5, 0, 5, 0);
             label4.Name = "label4";
             label4.Size = new Size(46, 23);
             label4.TabIndex = 2;
             label4.Text = "分類";
-            // 
-            // txtCategory
-            // 
-            txtCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtCategory.Location = new Point(61, 45);
-            txtCategory.Margin = new Padding(5);
-            txtCategory.Name = "txtCategory";
-            txtCategory.Size = new Size(248, 30);
-            txtCategory.TabIndex = 3;
             // 
             // label3
             // 
@@ -241,10 +233,10 @@ partial class MainForm
             flowLayoutPanel2.Controls.Add(btnDelete);
             flowLayoutPanel2.Controls.Add(btnClear);
             flowLayoutPanel2.Dock = DockStyle.Fill;
-            flowLayoutPanel2.Location = new Point(5, 165);
+            flowLayoutPanel2.Location = new Point(5, 162);
             flowLayoutPanel2.Margin = new Padding(5);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(304, 691);
+            flowLayoutPanel2.Size = new Size(304, 694);
             flowLayoutPanel2.TabIndex = 8;
             // 
             // btnAdd
@@ -290,6 +282,24 @@ partial class MainForm
             btnClear.Text = "清除";
             btnClear.UseVisualStyleBackColor = true;
             btnClear.Click += btnClear_Click;
+            // 
+            // cmbInputCategory
+            // 
+            cmbInputCategory.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            cmbInputCategory.FormattingEnabled = true;
+            cmbInputCategory.Location = new Point(59, 43);
+            cmbInputCategory.Name = "cmbInputCategory";
+            cmbInputCategory.Size = new Size(252, 31);
+            cmbInputCategory.TabIndex = 9;
+            // 
+            // txtCategory
+            // 
+            txtCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtCategory.Location = new Point(319, 209);
+            txtCategory.Margin = new Padding(5);
+            txtCategory.Name = "txtCategory";
+            txtCategory.Size = new Size(248, 30);
+            txtCategory.TabIndex = 3;
             // 
             // dgv
             // 
@@ -342,6 +352,7 @@ partial class MainForm
             Controls.Add(dgv);
             Controls.Add(tableLayoutPanel2);
             Controls.Add(flowLayoutPanel1);
+            Controls.Add(txtCategory);
             Margin = new Padding(5);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
@@ -383,5 +394,6 @@ partial class MainForm
     private FlowLayoutPanel flowLayoutPanel3;
     private Label lblTotal;
         private Button btnClear;
+        private ComboBox cmbInputCategory;
     }
 }

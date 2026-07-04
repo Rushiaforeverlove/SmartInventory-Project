@@ -30,6 +30,8 @@ namespace SmartInventory
             cmbCategory.Items.Add("全部");
             cmbCategory.Items.AddRange(ProductService.Categories);
             cmbCategory.SelectedIndex = 0;
+            cmbInputCategory.Items.AddRange(ProductService.Categories);
+            cmbInputCategory.SelectedIndex = 0;
 
             Dbhelper.InitDb();
             all = Dbhelper.GetAllProducts();
@@ -72,7 +74,7 @@ namespace SmartInventory
         private bool ReadInput(out Product product)
         {
             product = new Product();
-            if (txtName.Text.Trim() == "" || txtCategory.Text.Trim() == "")
+            if (txtName.Text.Trim() == "" || cmbInputCategory.Text.Trim() == "")
             {
                 MessageBox.Show("商品名稱或分類不能為空!");
                 return false;
@@ -91,7 +93,7 @@ namespace SmartInventory
             }
 
             product.Name = txtName.Text;
-            product.Category = txtCategory.Text;
+            product.Category = cmbInputCategory.Text;
             product.Quantity = q;
             product.Price = p;
 
@@ -119,7 +121,7 @@ namespace SmartInventory
 
         private void ClearInput()
         {
-            TextBox[] boxs = { txtName, txtCategory, txtPrice, txtQuantity };
+            TextBox[] boxs = { txtName, txtPrice, txtQuantity };
             foreach (var b in boxs) b.Text = string.Empty;
         }
 
@@ -133,7 +135,7 @@ namespace SmartInventory
             if (e.RowIndex < 0 || e.RowIndex >= view.Count) return;
             var p = view[e.RowIndex];
             txtName.Text = p.Name;
-            txtCategory.Text = p.Category;
+            cmbInputCategory.Text = p.Category;
             txtPrice.Text = p.Price.ToString();
             txtQuantity.Text = p.Quantity.ToString();
 
@@ -198,6 +200,7 @@ namespace SmartInventory
             RefreshView();
         }
 
+        
         // ───── 以下方法 13-2 才會寫（按鈕事件可在 Designer 雙擊自動產生）─────
         // 13-2：RefreshView()             刷新清單與總價值（用 ProductService.Search 過濾）
         // 13-2：ReadInput(out Product p)  讀輸入＋TryParse 驗證

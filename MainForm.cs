@@ -32,7 +32,7 @@ namespace SmartInventory
             {
                 Debug.WriteLine(p);
             }
-            RefreshVeiw();
+            RefreshView();
 
             // TODO（13-1）：啟動就讀資料庫
 
@@ -50,7 +50,7 @@ namespace SmartInventory
             //   flowLayoutPanel1.Controls.Add(btnChart);
         }
 
-        public void RefreshVeiw()
+        public void RefreshView()
         {
             veiw.Clear();
 
@@ -62,26 +62,88 @@ namespace SmartInventory
             }
         }
 
-        private bool ReadInput()
+        private bool ReadInput(out Product product)
         {
+            product = new Product();
             if (txtName.Text.Trim() == "" || txtCategory.Text.Trim() == "")
             {
                 MessageBox.Show("商品名稱或分類不能為空!");
                 return false;
             }
 
-            if(!int.TryParse(txtQuantity.Text, out int q) || q <= 0) 
+            if (!int.TryParse(txtQuantity.Text, out int q) || q <= 0)
             {
-                MessageBox.Show("輸入數量不正確!");
+                MessageBox.Show("數量輸入不正確!");
                 return false;
             }
-        
+
+            if (!decimal.TryParse(txtPrice.Text, out decimal p) || p <= 0)
+            {
+                MessageBox.Show("金額輸入不正確!");
+                return false;
+            }
+
+            product.Name = txtName.Text;
+            product.Category = txtCategory.Text;
+            product.Quantity = q;
+            product.Price = p;
+
             return true;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            ReadInput();
+            //增加是否授權
+
+
+
+            if (!ReadInput(out Product p)) return;
+
+            //插入資料庫
+            Dbhelper.InsertProduct(p);
+            all = Dbhelper.GetAllProducts();
+
+            //更新畫面
+            RefreshView();
+            ClearInput();
+
+
+        }
+
+        private void ClearInput()
+        {
+            TextBox[] boxs = { txtName, txtCategory, txtPrice, txtQuantity };
+            foreach (var b in boxs) b.Text = string.Empty;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearInput();
+        }
+
+        private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.RowIndex >= veiw.Count) return;
+            var p = veiw[e.RowIndex];
+            txtName.Text = p.Name;
+            txtCategory.Text = p.Category;
+            txtPrice.Text = p.Price.ToString();
+            txtQuantity.Text = p.Quantity.ToString();
+
+            //MessageBox.Show($"click:{e.RowIndex}");
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
+            if (dgv.CurrentRow == null) return;
+
+            var p = veiw[dgv.CurrentRow.Index];
+            Dbhelper.DeleteProduct(p);
+
+            all = Dbhelper.GetAllProducts();
+            RefreshView();
         }
 
         // ───── 以下方法 13-2 才會寫（按鈕事件可在 Designer 雙擊自動產生）─────

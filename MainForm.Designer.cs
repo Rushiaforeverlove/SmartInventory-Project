@@ -42,6 +42,7 @@ partial class MainForm
             btnAdd = new Button();
             btnUpdate = new Button();
             btnDelete = new Button();
+            btnClear = new Button();
             dgv = new DataGridView();
             flowLayoutPanel3 = new FlowLayoutPanel();
             lblTotal = new Label();
@@ -63,7 +64,7 @@ partial class MainForm
             flowLayoutPanel1.Controls.Add(btnCheck);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.Location = new Point(0, 0);
-            flowLayoutPanel1.Margin = new Padding(5, 5, 5, 5);
+            flowLayoutPanel1.Margin = new Padding(5);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Padding = new Padding(16, 8, 16, 8);
             flowLayoutPanel1.Size = new Size(1546, 61);
@@ -84,7 +85,7 @@ partial class MainForm
             // 
             txtSearch.Anchor = AnchorStyles.None;
             txtSearch.Location = new Point(95, 15);
-            txtSearch.Margin = new Padding(5, 5, 5, 5);
+            txtSearch.Margin = new Padding(5);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(281, 30);
             txtSearch.TabIndex = 1;
@@ -106,7 +107,7 @@ partial class MainForm
             cmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCategory.FormattingEnabled = true;
             cmbCategory.Location = new Point(460, 15);
-            cmbCategory.Margin = new Padding(5, 5, 5, 5);
+            cmbCategory.Margin = new Padding(5);
             cmbCategory.Name = "cmbCategory";
             cmbCategory.Size = new Size(188, 31);
             cmbCategory.TabIndex = 3;
@@ -115,7 +116,7 @@ partial class MainForm
             // 
             btnCheck.Anchor = AnchorStyles.None;
             btnCheck.Location = new Point(658, 13);
-            btnCheck.Margin = new Padding(5, 5, 5, 5);
+            btnCheck.Margin = new Padding(5);
             btnCheck.Name = "btnCheck";
             btnCheck.Size = new Size(118, 35);
             btnCheck.TabIndex = 4;
@@ -138,7 +139,7 @@ partial class MainForm
             tableLayoutPanel2.Controls.Add(flowLayoutPanel2, 1, 4);
             tableLayoutPanel2.Dock = DockStyle.Left;
             tableLayoutPanel2.Location = new Point(0, 61);
-            tableLayoutPanel2.Margin = new Padding(5, 5, 5, 5);
+            tableLayoutPanel2.Margin = new Padding(5);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 5;
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
@@ -165,7 +166,7 @@ partial class MainForm
             // 
             txtPrice.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPrice.Location = new Point(61, 125);
-            txtPrice.Margin = new Padding(5, 5, 5, 5);
+            txtPrice.Margin = new Padding(5);
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(248, 30);
             txtPrice.TabIndex = 7;
@@ -185,7 +186,7 @@ partial class MainForm
             // 
             txtQuantity.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtQuantity.Location = new Point(61, 85);
-            txtQuantity.Margin = new Padding(5, 5, 5, 5);
+            txtQuantity.Margin = new Padding(5);
             txtQuantity.Name = "txtQuantity";
             txtQuantity.Size = new Size(248, 30);
             txtQuantity.TabIndex = 5;
@@ -205,7 +206,7 @@ partial class MainForm
             // 
             txtCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtCategory.Location = new Point(61, 45);
-            txtCategory.Margin = new Padding(5, 5, 5, 5);
+            txtCategory.Margin = new Padding(5);
             txtCategory.Name = "txtCategory";
             txtCategory.Size = new Size(248, 30);
             txtCategory.TabIndex = 3;
@@ -225,7 +226,7 @@ partial class MainForm
             // 
             txtName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtName.Location = new Point(61, 5);
-            txtName.Margin = new Padding(5, 5, 5, 5);
+            txtName.Margin = new Padding(5);
             txtName.Name = "txtName";
             txtName.Size = new Size(248, 30);
             txtName.TabIndex = 1;
@@ -236,9 +237,10 @@ partial class MainForm
             flowLayoutPanel2.Controls.Add(btnAdd);
             flowLayoutPanel2.Controls.Add(btnUpdate);
             flowLayoutPanel2.Controls.Add(btnDelete);
+            flowLayoutPanel2.Controls.Add(btnClear);
             flowLayoutPanel2.Dock = DockStyle.Fill;
             flowLayoutPanel2.Location = new Point(5, 165);
-            flowLayoutPanel2.Margin = new Padding(5, 5, 5, 5);
+            flowLayoutPanel2.Margin = new Padding(5);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
             flowLayoutPanel2.Size = new Size(304, 691);
             flowLayoutPanel2.TabIndex = 8;
@@ -246,7 +248,7 @@ partial class MainForm
             // btnAdd
             // 
             btnAdd.Location = new Point(5, 5);
-            btnAdd.Margin = new Padding(5, 5, 5, 5);
+            btnAdd.Margin = new Padding(5);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(118, 35);
             btnAdd.TabIndex = 0;
@@ -257,7 +259,7 @@ partial class MainForm
             // btnUpdate
             // 
             btnUpdate.Location = new Point(133, 5);
-            btnUpdate.Margin = new Padding(5, 5, 5, 5);
+            btnUpdate.Margin = new Padding(5);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(118, 35);
             btnUpdate.TabIndex = 1;
@@ -267,12 +269,24 @@ partial class MainForm
             // btnDelete
             // 
             btnDelete.Location = new Point(5, 50);
-            btnDelete.Margin = new Padding(5, 5, 5, 5);
+            btnDelete.Margin = new Padding(5);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(118, 35);
             btnDelete.TabIndex = 2;
             btnDelete.Text = "刪除";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
+            // 
+            // btnClear
+            // 
+            btnClear.Location = new Point(133, 50);
+            btnClear.Margin = new Padding(5);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(118, 35);
+            btnClear.TabIndex = 3;
+            btnClear.Text = "清除";
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
             // 
             // dgv
             // 
@@ -280,13 +294,14 @@ partial class MainForm
             dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgv.Dock = DockStyle.Fill;
             dgv.Location = new Point(314, 61);
-            dgv.Margin = new Padding(5, 5, 5, 5);
+            dgv.Margin = new Padding(5);
             dgv.Name = "dgv";
             dgv.ReadOnly = true;
             dgv.RowHeadersWidth = 62;
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv.Size = new Size(1232, 861);
             dgv.TabIndex = 2;
+            dgv.CellClick += dgv_CellClick;
             // 
             // flowLayoutPanel3
             // 
@@ -296,9 +311,9 @@ partial class MainForm
             flowLayoutPanel3.Controls.Add(lblTotal);
             flowLayoutPanel3.Dock = DockStyle.Bottom;
             flowLayoutPanel3.Location = new Point(314, 877);
-            flowLayoutPanel3.Margin = new Padding(5, 5, 5, 5);
+            flowLayoutPanel3.Margin = new Padding(5);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Padding = new Padding(9, 9, 9, 9);
+            flowLayoutPanel3.Padding = new Padding(9);
             flowLayoutPanel3.Size = new Size(1232, 45);
             flowLayoutPanel3.TabIndex = 3;
             // 
@@ -324,7 +339,7 @@ partial class MainForm
             Controls.Add(dgv);
             Controls.Add(tableLayoutPanel2);
             Controls.Add(flowLayoutPanel1);
-            Margin = new Padding(5, 5, 5, 5);
+            Margin = new Padding(5);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SmartInventory 智能庫存管理系統";
@@ -364,5 +379,6 @@ partial class MainForm
     private DataGridView dgv;
     private FlowLayoutPanel flowLayoutPanel3;
     private Label lblTotal;
-}
+        private Button btnClear;
+    }
 }

@@ -85,5 +85,77 @@ namespace SmartInventory.Data
             }
             return result;
         }
+        public static void DeleteItem(Product p)
+        {
+            using (var conn = new SqliteConnection(connStr))
+            {
+                conn.Open();
+                string sql = "delete from item where id=@id";
+                using (var cmd = new SqliteCommand(sql, conn))
+                {
+                    //cmd.Parameters.AddWithValue("@id", item.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        // 刪除全部
+        public static void DeleteAllItem()
+        {
+            using (var conn = new SqliteConnection(connStr))
+            {
+                conn.Open();
+                string sql = "delete from item";
+                using (var cmd = new SqliteCommand(sql, conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        // 修改      
+        public static void UpdateItem(Product p)
+        {
+            using (var conn = new SqliteConnection(connStr))
+            {
+                conn.Open();
+                string sql = """
+                    update item set
+                    date=@date,
+                    note=@note,
+                    amount=@amount,
+                    category=@category,
+                    isincome=@isincome
+                    where id=@id
+                    """;
+
+                using (var cmd = new SqliteCommand(sql, conn))
+                {
+                    //cmd.Parameters.AddWithValue("@date", item.Date.ToString("yyyy-MM-dd HH:mm:ss"));
+                    //cmd.Parameters.AddWithValue("@note", item.Note);
+                    //cmd.Parameters.AddWithValue("@amount", (double)item.Amount);
+                    //cmd.Parameters.AddWithValue("@category", item.CategoryType.ToString());
+                    //cmd.Parameters.AddWithValue("@isincome", item.IsIncome);
+                    //cmd.Parameters.AddWithValue("@id", item.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void DeleteProduct(Product p)
+        {
+            using (var conn = new SqliteConnection(connStr))
+            {
+                conn.Open();
+                string sql = "delete from Products where id=@id";
+                using (var cmd = new SqliteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", p.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

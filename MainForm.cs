@@ -70,7 +70,7 @@ namespace SmartInventory
                 return false;
             }
 
-            if(!int.TryParse(txtQuantity.Text, out int q)) 
+            if(!int.TryParse(txtQuantity.Text, out int q) || q <= 0) 
             {
                 MessageBox.Show("輸入數量不正確!");
                 return false;

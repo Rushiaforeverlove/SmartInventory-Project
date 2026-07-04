@@ -139,11 +139,23 @@ namespace SmartInventory
 
             if (dgv.CurrentRow == null) return;
 
-            var p = veiw[dgv.CurrentRow.Index];
+            int index = dgv.CurrentRow.Index;
+            var p = veiw[index];
+
+            if (MessageBox.Show($"是否刪除:{p.Id}-{p.Name}", "確認", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+
             Dbhelper.DeleteProduct(p);
 
             all = Dbhelper.GetAllProducts();
             RefreshView();
+
+            if(veiw.Count > 0)
+            {
+                if(index >=veiw.Count) index = veiw.Count -1;
+            }
+
+            //維持當下位置
+            dgv.Rows[index].Selected = true;
         }
 
         // ───── 以下方法 13-2 才會寫（按鈕事件可在 Designer 雙擊自動產生）─────

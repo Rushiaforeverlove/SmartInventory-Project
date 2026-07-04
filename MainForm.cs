@@ -58,11 +58,12 @@ namespace SmartInventory
 
         public void RefreshView()
         {
+            //篩選機制
+            var filtered = ProductService.Search(all, txtSearch.Text.Trim(), cmbCategory.Text.Trim());
+
             view.Clear();
 
-
-
-            foreach (var p in all)
+            foreach (var p in filtered)
             {
                 view.Add(p);
             }
@@ -185,6 +186,16 @@ namespace SmartInventory
 
             //維持當下位置
             dgv.Rows[index].Selected = true;
+        }
+
+        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshView();
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            RefreshView();
         }
 
         // ───── 以下方法 13-2 才會寫（按鈕事件可在 Designer 雙擊自動產生）─────

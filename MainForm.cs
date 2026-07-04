@@ -16,11 +16,11 @@ namespace SmartInventory
         private List<Product> all = new List<Product>();
 
         //綁定畫面用
-        private BindingList<Product> veiw = new BindingList<Product>();
+        private BindingList<Product> view = new BindingList<Product>();
         public MainForm()
         {
             InitializeComponent();
-            dgv.DataSource = veiw;
+            dgv.DataSource = view;
             dgv.AllowUserToAddRows = false; // ← 拿掉最後那條可輸入的空白列
             dgv.AllowUserToDeleteRows = false; // 不讓在表格上直接刪列
             dgv.MultiSelect = false; // 一次只選一列
@@ -52,13 +52,13 @@ namespace SmartInventory
 
         public void RefreshView()
         {
-            veiw.Clear();
+            view.Clear();
 
 
 
             foreach (var p in all)
             {
-                veiw.Add(p);
+                view.Add(p);
             }
         }
 
@@ -123,8 +123,8 @@ namespace SmartInventory
 
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.RowIndex >= veiw.Count) return;
-            var p = veiw[e.RowIndex];
+            if (e.RowIndex < 0 || e.RowIndex >= view.Count) return;
+            var p = view[e.RowIndex];
             txtName.Text = p.Name;
             txtCategory.Text = p.Category;
             txtPrice.Text = p.Price.ToString();
@@ -140,19 +140,42 @@ namespace SmartInventory
             if (dgv.CurrentRow == null) return;
 
             int index = dgv.CurrentRow.Index;
-            var p = veiw[index];
+            var p = view[index];
 
             if (MessageBox.Show($"是否刪除:{p.Id}-{p.Name}", "確認", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
 
-            Dbhelper.DeleteProduct(p);
+            Dbhelper.DeleteProducts(p);
 
             all = Dbhelper.GetAllProducts();
             RefreshView();
 
-            if(veiw.Count > 0)
+            if (view.Count > 0)
             {
-                if(index >=veiw.Count) index = veiw.Count -1;
+                if (index >= view.Count) index = view.Count - 1;
             }
+
+            //維持當下位置
+            dgv.Rows[index].Selected = true;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+
+            if (dgv.CurrentRow == null) return;
+
+            if (!ReadInput(out Product p)) return;
+
+            int index = dgv.CurrentRow.Index;
+
+            p.Id = view[index].Id;
+
+            if (MessageBox.Show($"是否更新:{p.Id}-{p.Name}", "確認", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+
+            //更新商品
+            Dbhelper.UpdateProducts(p);
+            all = Dbhelper.GetAllProducts();
+            RefreshView();
+
 
             //維持當下位置
             dgv.Rows[index].Selected = true;

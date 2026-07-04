@@ -144,7 +144,7 @@ namespace SmartInventory.Data
             }
         }
 
-        public static void DeleteProduct(Product p)
+        public static void DeleteProducts(Product p)
         {
             using (var conn = new SqliteConnection(connStr))
             {
@@ -153,6 +153,33 @@ namespace SmartInventory.Data
                 using (var cmd = new SqliteCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", p.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void UpdateProducts(Product p)
+        {
+            using (var conn = new SqliteConnection(connStr))
+            {
+                conn.Open();
+               
+                string sql = """
+                    update Products set
+                    Name=@Name,
+                    Category=@Category,
+                    Quantity=@Quantity,
+                    Price=@Price
+                    where Id=@Id
+                    """;
+
+                using (var cmd = new SqliteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Name", p.Name);
+                    cmd.Parameters.AddWithValue("@Category", p.Category);
+                    cmd.Parameters.AddWithValue("@Quantity", p.Quantity);
+                    cmd.Parameters.AddWithValue("@Price", (double)p.Price);
+                    cmd.Parameters.AddWithValue("@Id", (double)p.Id);
                     cmd.ExecuteNonQuery();
                 }
             }

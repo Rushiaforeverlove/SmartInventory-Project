@@ -1,5 +1,6 @@
 using SmartInventory.Data;
 using SmartInventory.Models;
+using SmartInventory.Services;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -24,6 +25,11 @@ namespace SmartInventory
             dgv.AllowUserToAddRows = false; // ← 拿掉最後那條可輸入的空白列
             dgv.AllowUserToDeleteRows = false; // 不讓在表格上直接刪列
             dgv.MultiSelect = false; // 一次只選一列
+
+            //設定ComboBox
+            cmbCategory.Items.Add("全部");
+            cmbCategory.Items.AddRange(ProductService.Categories);
+            cmbCategory.SelectedIndex = 0;
 
             Dbhelper.InitDb();
             all = Dbhelper.GetAllProducts();

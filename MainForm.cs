@@ -37,13 +37,17 @@ namespace SmartInventory
             cmbInputCategory.Items.AddRange(ProductService.Categories);
             cmbInputCategory.SelectedIndex = 0;
 
+            MySqlDbhelper.InitDb();
+           
+
             Dbhelper.InitDb();
             all = Dbhelper.GetAllProducts();
 
-            foreach (var p in all)
-            {
-                Debug.WriteLine(p);
-            }
+            //foreach (var p in all)
+            //{
+            //    Debug.WriteLine(p);
+            //}
+
             RefreshView();
 
             // TODO（13-1）：啟動就讀資料庫

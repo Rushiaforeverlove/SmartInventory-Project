@@ -25,6 +25,8 @@ namespace SmartInventory
             dgv.AllowUserToAddRows = false; // ← 拿掉最後那條可輸入的空白列
             dgv.AllowUserToDeleteRows = false; // 不讓在表格上直接刪列
             dgv.MultiSelect = false; // 一次只選一列
+            nudStockNum.Minimum = 0;
+            nudStockNum.Maximum = 100000;
 
             //設定ComboBox
             cmbCategory.Items.Add("全部");
@@ -69,6 +71,8 @@ namespace SmartInventory
             {
                 view.Add(p);
             }
+            var (total, qty) = ProductService.GetTotalValue(all);
+            lblTotal.Text = $"庫存總價值 : $ {total} | 總庫存數量 {qty}";
         }
 
         private bool ReadInput(out Product product)
@@ -200,7 +204,30 @@ namespace SmartInventory
             RefreshView();
         }
 
-        
+        private void btnCheck_Click(object ssender, EventArgs e)
+        {
+            int lowStock = (int)nudStockNum.Value;
+            var result = ProductService.GetLowStock(all, lowStock);
+
+            if (result.Count() == 0)
+            {
+                MessageBox.Show("庫存狀況良好!");
+                return;
+
+            }
+
+            string lowStockStr = $"低庫存警告:少於{lowStock}:數量\n\n";
+
+            foreach (var p in result)
+            {
+                lowStockStr += $"{p.Name} 數量:{p.Quantity}\n";
+            }
+
+            MessageBox.Show(lowStockStr);
+        }
+
+     
+
         // ───── 以下方法 13-2 才會寫（按鈕事件可在 Designer 雙擊自動產生）─────
         // 13-2：RefreshView()             刷新清單與總價值（用 ProductService.Search 過濾）
         // 13-2：ReadInput(out Product p)  讀輸入＋TryParse 驗證

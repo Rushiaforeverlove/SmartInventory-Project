@@ -48,6 +48,7 @@ partial class MainForm
             dgv = new DataGridView();
             flowLayoutPanel3 = new FlowLayoutPanel();
             lblTotal = new Label();
+            btnChart = new Button();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudStockNum).BeginInit();
             tableLayoutPanel2.SuspendLayout();
@@ -66,6 +67,7 @@ partial class MainForm
             flowLayoutPanel1.Controls.Add(cmbCategory);
             flowLayoutPanel1.Controls.Add(btnCheck);
             flowLayoutPanel1.Controls.Add(nudStockNum);
+            flowLayoutPanel1.Controls.Add(btnChart);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Margin = new Padding(5);
@@ -356,6 +358,16 @@ partial class MainForm
             lblTotal.TabIndex = 0;
             lblTotal.Text = "總庫存價值：$ 0";
             // 
+            // btnChart
+            // 
+            btnChart.Location = new Point(970, 11);
+            btnChart.Name = "btnChart";
+            btnChart.Size = new Size(112, 34);
+            btnChart.TabIndex = 6;
+            btnChart.Text = "繪製圖示";
+            btnChart.UseVisualStyleBackColor = true;
+            btnChart.Click += btnChart_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(11F, 23F);
@@ -410,5 +422,6 @@ partial class MainForm
         private Button btnClear;
         private ComboBox cmbInputCategory;
         private NumericUpDown nudStockNum;
+        private Button btnChart;
     }
 }

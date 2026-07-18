@@ -226,7 +226,14 @@ namespace SmartInventory
             MessageBox.Show(lowStockStr);
         }
 
-     
+        private void btnChart_Click(object sender, EventArgs e)
+        {
+            var stat = ProductService.Statistics(all);
+            Debug.WriteLine(stat["電子"][0]);
+            Debug.WriteLine(stat["電子"][1]);
+        }
+
+
 
         // ───── 以下方法 13-2 才會寫（按鈕事件可在 Designer 雙擊自動產生）─────
         // 13-2：RefreshView()             刷新清單與總價值（用 ProductService.Search 過濾）
